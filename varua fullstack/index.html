@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PROJECT VARUNA 1.0</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --black:#020202;
+    --white:#f5f5f5;
+    --gray:#999;
+    --red:#df0000;
+    --glass:rgba(255,255,255,.065);
+    --glass2:rgba(255,255,255,.11);
+    --border:rgba(255,255,255,.16);
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    min-height:100vh;
+    color:var(--white);
+    background:#000;
+    font-family:"Rajdhani",sans-serif;
+    overflow-x:hidden;
+}
+
+#spaceBackground{
+    position:fixed;
+    inset:0;
+    z-index:-20;
+    background:
+        radial-gradient(circle at 15% 20%,rgba(255,255,255,.09),transparent 25%),
+        radial-gradient(circle at 85% 60%,rgba(220,0,0,.13),transparent 28%),
+        radial-gradient(circle at 50% 100%,rgba(255,255,255,.05),transparent 35%),
+        linear-gradient(130deg,#000,#090909,#010101);
+    background-size:cover;
+    background-position:center;
+}
+
+#stars{
+    position:fixed;
+    inset:0;
+    z-index:-10;
+    pointer-events:none;
+}
+
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:#fff;
+    border-radius:50%;
+    animation:starMove linear infinite;
+}
+
+@keyframes starMove{
+    from{transform:translateY(-10vh)}
+    to{transform:translateY(110vh)}
+}
+
+.glass{
+    background:var(--glass);
+    border:1px solid var(--border);
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+    box-shadow:0 20px 70px rgba(0,0,0,.45);
+}
+
+.nav{
+    position:fixed;
+    z-index:50;
+    top:12px;
+    left:50%;
+    transform:translateX(-50%);
+    width:min(1200px,94%);
+    padding:10px 12px;
+    border-radius:22px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.logo{
+    font-family:"Audiowide",sans-serif;
+    font-size:14px;
+    white-space:nowrap;
+    letter-spacing:1px;
+}
+
+.pill{
+    padding:6px 10px;
+    border:1px solid var(--border);
+    border-radius:999px;
+    color:#aaa;
+    font-family:"Orbitron",sans-serif;
+    font-size:9px;
+    white-space:nowrap;
+}
+
+.navButtons{
+    margin-left:auto;
+    display:flex;
+    gap:7px;
+}
+
+.btn{
+    color:white;
+    background:rgba(255,255,255,.055);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:10px 14px;
+    font-weight:700;
+    letter-spacing:1px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.btn:hover{
+    background:rgba(255,255,255,.13);
+    transform:translateY(-2px);
+}
+
+.btnRed{
+    background:rgba(220,0,0,.14);
+    border-color:rgba(255,0,0,.4);
+}
+
+.btnRed:hover{
+    background:rgba(220,0,0,.25);
+}
+
+.wrap{
+    width:min(1120px,92%);
+    margin:auto;
+}
+
+section{
+    padding:105px 0 55px;
+    scroll-margin-top:70px;
+}
+
+.sectionTitle{
+    font-family:"Orbitron",sans-serif;
+    font-size:clamp(28px,5vw,46px);
+    font-weight:800;
+    margin-bottom:8px;
+}
+
+.sectionSub{
+    color:#999;
+    margin-bottom:25px;
+    font-size:16px;
+}
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding-top:130px;
+}
+
+.eyebrow{
+    color:#aaa;
+    font-family:"Orbitron",sans-serif;
+    font-size:11px;
+    letter-spacing:3px;
+}
+
+.heroTitle{
+    font-family:"Audiowide",sans-serif;
+    font-size:clamp(42px,9vw,100px);
+    line-height:.94;
+    margin:24px 0 15px;
+}
+
+.heroSubtitle{
+    color:#aaa;
+    font-size:17px;
+    letter-spacing:1px;
+}
+
+.trailer{
+    width:min(850px,100%);
+    aspect-ratio:16/9;
+    margin:35px auto 0;
+    overflow:hidden;
+    border-radius:26px;
+    position:relative;
+}
+
+#trailerVideo{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:none;
+    background:#000;
+}
+
+.comingSoon{
+    width:100%;
+    height:100%;
+    display:grid;
+    place-items:center;
+    color:#666;
+    font-family:"Orbitron",sans-serif;
+    font-size:11px;
+    letter-spacing:3px;
+}
+
+.grid2{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:16px;
+}
+
+.card{
+    padding:26px;
+    border-radius:23px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.card:hover{
+    background:var(--glass2);
+    transform:translateY(-3px);
+}
+
+.card h3{
+    font-family:"Orbitron",sans-serif;
+    font-size:18px;
+    margin-bottom:12px;
+}
+
+.card p{
+    color:#bbb;
+    line-height:1.65;
+}
+
+.componentLayout{
+    display:grid;
+    grid-template-columns:320px 1fr;
+    gap:18px;
+}
+
+.componentList{
+    display:grid;
+    gap:9px;
+}
+
+.componentItem{
+    padding:16px;
+    border-radius:16px;
+    background:rgba(255,255,255,.04);
+    border:1px solid var(--border);
+    cursor:pointer;
+    transition:.2s;
+}
+
+.componentItem:hover,
+.componentItem.active{
+    background:rgba(255,255,255,.11);
+    border-color:rgba(255,255,255,.34);
+}
+
+.componentItem strong{
+    display:block;
+    font-family:"Orbitron",sans-serif;
+    font-size:12px;
+}
+
+.componentItem small{
+    color:#777;
+}
+
+.componentDetail{
+    min-height:340px;
+    border-radius:25px;
+    overflow:hidden;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+}
+
+.componentImage{
+    width:100%;
+    height:100%;
+    min-height:340px;
+    object-fit:cover;
+    background:#111;
+}
+
+.componentText{
+    padding:30px;
+}
+
+.componentTag{
+    color:#777;
+    font-family:"Orbitron",sans-serif;
+    font-size:10px;
+    letter-spacing:2px;
+}
+
+.componentText h3{
+    font-family:"Orbitron",sans-serif;
+    font-size:26px;
+    margin:12px 0;
+}
+
+.componentText p{
+    color:#bbb;
+    line-height:1.7;
+}
+
+.dataBlock{
+    margin-top:30px;
+}
+
+.dataGrid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:13px;
+}
+
+.dataCircle{
+    aspect-ratio:1;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    text-align:center;
+    padding:20px;
+    background:radial-gradient(circle,rgba(255,255,255,.09),transparent 66%);
+}
+
+.dataCircle b{
+    display:block;
+    font-family:"Orbitron",sans-serif;
+    font-size:30px;
+}
+
+.dataCircle span{
+    color:#999;
+    font-size:11px;
+    letter-spacing:1px;
+}
+
+.teamGrid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+}
+
+.member{
+    padding:22px;
+    border-radius:22px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.member:hover{
+    transform:translateY(-3px);
+    background:var(--glass2);
+}
+
+.member h3{
+    font-family:"Orbitron",sans-serif;
+    font-size:16px;
+    margin-bottom:8px;
+}
+
+.member span{
+    color:#999;
+}
+
+.member::after{
+    content:"↗";
+    float:right;
+    color:#777;
+}
+
+.projectBox{
+    padding:30px;
+    border-radius:26px;
+}
+
+.projectBox h3{
+    font-family:"Orbitron",sans-serif;
+    margin-bottom:12px;
+}
+
+.projectBox p{
+    color:#bbb;
+    line-height:1.7;
+    margin-bottom:15px;
+}
+
+.projectBox ul{
+    padding-left:20px;
+    color:#bbb;
+    line-height:1.9;
+}
+
+.creditGrid{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+}
+
+.credit{
+    padding:18px 22px;
+    border-radius:18px;
+    font-family:"Orbitron",sans-serif;
+    font-size:12px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.credit:hover{
+    background:var(--glass2);
+}
+
+footer{
+    text-align:center;
+    padding:50px 0 80px;
+    color:#666;
+}
+
+.modal,
+.adminOverlay{
+    position:fixed;
+    inset:0;
+    z-index:100;
+    background:rgba(0,0,0,.82);
+    display:none;
+}
+
+.modal.open{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.modalBox{
+    position:relative;
+    width:min(650px,100%);
+    padding:30px;
+    border-radius:25px;
+}
+
+.modalBox h2{
+    font-family:"Orbitron",sans-serif;
+    margin-bottom:15px;
+}
+
+.modalBox p{
+    color:#bbb;
+    line-height:1.7;
+}
+
+.closeButton{
+    position:absolute;
+    top:13px;
+    right:13px;
+}
+
+.adminOverlay{
+    z-index:200;
+    padding:20px;
+    overflow:auto;
+}
+
+.adminOverlay.open{
+    display:block;
+}
+
+.adminPanel{
+    width:min(1050px,100%);
+    margin:20px auto;
+    padding:28px;
+    border-radius:27px;
+    position:relative;
+}
+
+.adminTitle{
+    font-family:"Orbitron",sans-serif;
+    font-size:27px;
+    margin-bottom:7px;
+}
+
+.adminDescription{
+    color:#888;
+    margin-bottom:22px;
+}
+
+.pinArea{
+    max-width:400px;
+    margin:60px auto;
+    text-align:center;
+}
+
+.pinArea h2{
+    font-family:"Orbitron",sans-serif;
+    margin-bottom:10px;
+}
+
+.pinArea p{
+    color:#888;
+    margin-bottom:20px;
+}
+
+.pinInput{
+    width:100%;
+    padding:16px;
+    text-align:center;
+    font-size:22px;
+    letter-spacing:7px;
+    border-radius:14px;
+    border:1px solid var(--border);
+    background:rgba(255,255,255,.06);
+    color:white;
+    outline:none;
+    margin-bottom:12px;
+}
+
+.pinError{
+    color:#ff4444;
+    min-height:20px;
+    margin-bottom:8px;
+}
+
+.hidden{
+    display:none!important;
+}
+
+.adminSectionTitle{
+    font-family:"Orbitron",sans-serif;
+    font-size:16px;
+    margin:28px 0 12px;
+}
+
+.adminGrid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:13px;
+}
+
+.adminField{
+    margin:8px 0;
+}
+
+.adminField.full{
+    grid-column:1/-1;
+}
+
+.adminField label{
+    display:block;
+    color:#999;
+    font-family:"Orbitron",sans-serif;
+    font-size:9px;
+    margin-bottom:6px;
+}
+
+.adminField input,
+.adminField textarea{
+    width:100%;
+    padding:12px;
+    border-radius:11px;
+    border:1px solid var(--border);
+    background:rgba(255,255,255,.06);
+    color:white;
+    outline:none;
+    font-family:"Rajdhani",sans-serif;
+}
+
+.adminField textarea{
+    min-height:80px;
+    resize:vertical;
+}
+
+.componentAdmin{
+    padding:18px;
+    border-radius:18px;
+    margin-bottom:12px;
+    border:1px solid var(--border);
+    background:rgba(255,255,255,.035);
+}
+
+.componentAdmin h4{
+    font-family:"Orbitron",sans-serif;
+    margin-bottom:12px;
+}
+
+.imagePreview{
+    width:100%;
+    max-width:260px;
+    height:130px;
+    object-fit:cover;
+    border-radius:12px;
+    margin-top:10px;
+    display:none;
+    background:#111;
+}
+
+.fileInput{
+    width:100%;
+    padding:10px;
+    color:#aaa;
+    border:1px dashed #444;
+    border-radius:10px;
+    background:#080808;
+}
+
+.adminActions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:25px;
+}
+
+.adminNote{
+    color:#666;
+    font-size:12px;
+    line-height:1.6;
+    margin-top:13px;
+}
+
+.saveStatus{
+    color:#69d369;
+    font-family:"Orbitron",sans-serif;
+    font-size:10px;
+    min-height:18px;
+    margin-top:10px;
+}
+
+@media(max-width:850px){
+    .pill{ display:none; }
+    .componentLayout{ grid-template-columns:1fr; }
+    .componentDetail{ grid-template-columns:1fr; }
+    .componentImage{ min-height:230px; height:230px; }
+    .dataGrid{ grid-template-columns:repeat(2,1fr); }
+    .teamGrid{ grid-template-columns:repeat(2,1fr); }
+    .adminGrid{ grid-template-columns:1fr; }
+}
+
+@media(max-width:520px){
+    .nav{ width:95%; }
+    .logo{ font-size:12px; }
+    .navButtons{ overflow:auto; }
+    .navButtons .btn{ white-space:nowrap; padding:9px 10px; }
+    .heroTitle{ font-size:40px; }
+    .grid2{ grid-template-columns:1fr; }
+    .teamGrid{ grid-template-columns:1fr; }
+    .dataCircle b{ font-size:24px; }
+    .adminPanel{ padding:20px; }
+}
+</style>
+</head>
+
+<body>
+
+<div id="spaceBackground"></div>
+<div id="stars"></div>
+
+<!-- NAV -->
+<nav class="nav glass">
+    <div class="logo" id="navLogo">VARUNA 1.0</div>
+    <div class="pill" id="navPill1">AUTONOMOUS EV</div>
+    <div class="pill" id="navPill2">MINI ELECTRIC VEHICLE COMPETITION 3.0</div>
+    <div class="navButtons">
+        <button class="btn" id="navAboutBtn" onclick="scrollToSection('about')">ABOUT</button>
+        <button class="btn" id="navComponentsBtn" onclick="scrollToSection('components')">COMPONENTS</button>
+        <button class="btn btnRed" id="navAdminBtn" onclick="openAdmin()">ADMIN</button>
+    </div>
+</nav>
+
+<!-- HOME -->
+<section id="home" class="hero">
+<div class="wrap">
+    <div class="eyebrow" id="heroEyebrow">DOTBYTE SYSTEMS × PVN COMPANY × SACHU PRESENT</div>
+    <h1 class="heroTitle">
+        <span id="heroLine1">PROJECT</span><br>
+        <span id="heroLine2">VARUNA 1.0</span>
+    </h1>
+    <p class="heroSubtitle" id="heroSubtitle">MINI ELECTRIC VEHICLE • AUTONOMOUS LINE FOLLOWER</p>
+    <div class="trailer glass">
+        <video id="trailerVideo" controls></video>
+        <div id="trailerComing" class="comingSoon">TRAILER COMING SOON</div>
+    </div>
+</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+<div class="wrap">
+    <h2 class="sectionTitle" id="aboutTitle">ABOUT VARUNA</h2>
+    <p class="sectionSub" id="aboutSubtitle">A competition-focused autonomous electric vehicle.</p>
+    <div class="grid2">
+        <div class="card glass" onclick="openInfo('mission')">
+            <h3 id="missionTitle">MISSION</h3>
+            <p id="missionPreview"></p>
+        </div>
+        <div class="card glass" onclick="openInfo('engineering')">
+            <h3 id="engineeringTitle">ENGINEERING APPROACH</h3>
+            <p id="engineeringPreview"></p>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- MISSION -->
+<section id="missionSection">
+<div class="wrap">
+    <h2 class="sectionTitle" id="missionSectionTitle">MISSION</h2>
+    <p class="sectionSub" id="missionSectionSubtitle">Designed around the line follower race.</p>
+    <div class="card glass">
+        <p id="missionFull"></p>
+    </div>
+</div>
+</section>
+
+<!-- COMPONENTS -->
+<section id="components">
+<div class="wrap">
+    <h2 class="sectionTitle" id="componentsTitle">COMPONENTS</h2>
+    <p class="sectionSub" id="componentsSubtitle">Select a component to inspect its purpose.</p>
+    <div class="componentLayout">
+        <div class="componentList" id="componentList"></div>
+        <div class="componentDetail glass">
+            <img id="componentImage" class="componentImage" alt="Component">
+            <div class="componentText">
+                <div id="componentTag" class="componentTag"></div>
+                <h3 id="componentName"></h3>
+                <p id="componentDescription"></p>
+                <button id="componentButton" class="btn btnRed" style="margin-top:12px; display:none;"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- DATA -->
+    <div class="dataBlock">
+        <h2 class="sectionTitle" id="dataTitle">VARUNA / DATA</h2>
+        <p class="sectionSub" id="dataSubtitle">Core system architecture.</p>
+        <div class="dataGrid" id="dataGrid"></div>
+    </div>
+</div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+<div class="wrap">
+    <h2 class="sectionTitle" id="teamTitle">TEAM</h2>
+    <p class="sectionSub" id="teamSubtitle">The people behind Project Varuna.</p>
+    <div class="teamGrid" id="teamGrid"></div>
+</div>
+</section>
+
+<!-- PROJECT -->
+<section id="project">
+<div class="wrap">
+    <h2 class="sectionTitle" id="projectTitle">PROJECT</h2>
+    <p class="sectionSub" id="projectSubtitle">Competition configuration.</p>
+    <div class="projectBox glass">
+        <h3 id="projectHeading">MINI ELECTRIC VEHICLE COMPETITION 3.0</h3>
+        <p id="projectDescription">Project Varuna is being developed as an autonomous electric vehicle focused on accurate line tracking, responsive control and reliable race performance.</p>
+        <ul id="projectBullets"></ul>
+    </div>
+</div>
+</section>
+
+<!-- CREDITS -->
+<section id="credits">
+<div class="wrap">
+    <h2 class="sectionTitle" id="creditsTitle">CREDITS</h2>
+    <p class="sectionSub" id="creditsSubtitle">Project organizations.</p>
+    <div class="creditGrid">
+        <div class="credit glass" id="dotbyteCredit" onclick="openInstagram('dotbyte')">DOTBYTE SYSTEMS ↗</div>
+        <div class="credit glass" id="pvnCredit" onclick="openInstagram('pvn')">PVN COMPANY ↗</div>
+    </div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+<div class="wrap">
+    <button class="btn btnRed" id="footerAdminBtn" onclick="openAdmin()">OPEN ADMIN DASHBOARD</button>
+    <p id="footerText" style="margin-top:20px;">PROJECT VARUNA 1.0</p>
+</div>
+</footer>
+
+<!-- INFO MODAL -->
+<div id="infoModal" class="modal">
+<div class="modalBox glass">
+    <button class="btn closeButton" onclick="closeInfo()">CLOSE</button>
+    <h2 id="modalTitle"></h2>
+    <p id="modalText"></p>
+</div>
+</div>
+
+<!-- ADMIN -->
+<div id="adminOverlay" class="adminOverlay">
+<div class="adminPanel glass">
+<button class="btn closeButton" onclick="closeAdmin()">CLOSE</button>
+
+<!-- PIN -->
+<div id="pinScreen" class="pinArea">
+    <h2 id="pinTitle">ADMIN ACCESS</h2>
+    <p id="pinDescription">Enter the administrator PIN.</p>
+    <input id="adminPinInput" class="pinInput" type="password" inputmode="numeric" maxlength="12" placeholder="••••••" onkeydown="if(event.key==='Enter')checkPin()">
+    <div id="pinError" class="pinError"></div>
+    <button class="btn btnRed" id="pinButton" onclick="checkPin()">OPEN DASHBOARD</button>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="hidden">
+<h2 class="adminTitle">VARUNA CONTROL CENTER</h2>
+<p class="adminDescription">Edit every configurable piece of website content.</p>
+
+<h3 class="adminSectionTitle">NAVIGATION</h3>
+<div class="adminGrid">
+<div class="adminField"><label>NAV LOGO</label><input id="editNavLogo"></div>
+<div class="adminField"><label>NAV PILL 1</label><input id="editNavPill1"></div>
+<div class="adminField"><label>NAV PILL 2</label><input id="editNavPill2"></div>
+<div class="adminField"><label>ABOUT BUTTON</label><input id="editNavAbout"></div>
+<div class="adminField"><label>COMPONENTS BUTTON</label><input id="editNavComponents"></div>
+<div class="adminField"><label>ADMIN BUTTON</label><input id="editNavAdmin"></div>
+</div>
+
+<h3 class="adminSectionTitle">HOME / HERO</h3>
+<div class="adminGrid">
+<div class="adminField full"><label>HERO EYEBROW</label><input id="editEyebrow"></div>
+<div class="adminField"><label>HERO LINE 1</label><input id="editHeroLine1"></div>
+<div class="adminField"><label>HERO LINE 2</label><input id="editHeroLine2"></div>
+<div class="adminField full"><label>HERO SUBTITLE</label><input id="editHeroSubtitle"></div>
+<div class="adminField full"><label>TRAILER PLACEHOLDER</label><input id="editTrailerComing"></div>
+</div>
+
+<h3 class="adminSectionTitle">ABOUT</h3>
+<div class="adminGrid">
+<div class="adminField"><label>ABOUT TITLE</label><input id="editAboutTitle"></div>
+<div class="adminField"><label>ABOUT SUBTITLE</label><input id="editAboutSubtitle"></div>
+<div class="adminField"><label>MISSION CARD TITLE</label><input id="editMissionTitle"></div>
+<div class="adminField"><label>ENGINEERING CARD TITLE</label><input id="editEngineeringTitle"></div>
+<div class="adminField full"><label>MISSION TEXT</label><textarea id="editMission"></textarea></div>
+<div class="adminField full"><label>ENGINEERING APPROACH TEXT</label><textarea id="editEngineering"></textarea></div>
+</div>
+
+<h3 class="adminSectionTitle">MISSION SECTION</h3>
+<div class="adminGrid">
+<div class="adminField"><label>MISSION SECTION TITLE</label><input id="editMissionSectionTitle"></div>
+<div class="adminField"><label>MISSION SECTION SUBTITLE</label><input id="editMissionSectionSubtitle"></div>
+</div>
+
+<h3 class="adminSectionTitle">COMPONENTS</h3>
+<div class="adminGrid">
+<div class="adminField"><label>COMPONENTS TITLE</label><input id="editComponentsTitle"></div>
+<div class="adminField"><label>COMPONENTS SUBTITLE</label><input id="editComponentsSubtitle"></div>
+</div>
+<div id="componentAdminFields"></div>
+
+<h3 class="adminSectionTitle">VARUNA / DATA</h3>
+<div class="adminGrid">
+<div class="adminField"><label>DATA TITLE</label><input id="editDataTitle"></div>
+<div class="adminField"><label>DATA SUBTITLE</label><input id="editDataSubtitle"></div>
+</div>
+<div id="dataAdminFields"></div>
+
+<h3 class="adminSectionTitle">TEAM</h3>
+<div class="adminGrid">
+<div class="adminField"><label>TEAM TITLE</label><input id="editTeamTitle"></div>
+<div class="adminField"><label>TEAM SUBTITLE</label><input id="editTeamSubtitle"></div>
+</div>
+<div id="teamAdminFields"></div>
+
+<h3 class="adminSectionTitle">PROJECT</h3>
+<div class="adminGrid">
+<div class="adminField"><label>PROJECT TITLE</label><input id="editProjectTitle"></div>
+<div class="adminField"><label>PROJECT SUBTITLE</label><input id="editProjectSubtitle"></div>
+<div class="adminField full"><label>PROJECT HEADING</label><input id="editProjectHeading"></div>
+<div class="adminField full"><label>PROJECT DESCRIPTION</label><textarea id="editProjectDescription"></textarea></div>
+</div>
+<div id="projectBulletAdmin"></div>
+
+<h3 class="adminSectionTitle">CREDITS</h3>
+<div class="adminGrid">
+<div class="adminField"><label>CREDITS TITLE</label><input id="editCreditsTitle"></div>
+<div class="adminField"><label>CREDITS SUBTITLE</label><input id="editCreditsSubtitle"></div>
+<div class="adminField"><label>DOTBYTE CREDIT TEXT</label><input id="editDotbyteCredit"></div>
+<div class="adminField"><label>PVN CREDIT TEXT</label><input id="editPvnCredit"></div>
+</div>
+
+<h3 class="adminSectionTitle">FOOTER</h3>
+<div class="adminGrid">
+<div class="adminField"><label>FOOTER ADMIN BUTTON</label><input id="editFooterAdmin"></div>
+<div class="adminField"><label>FOOTER TEXT</label><input id="editFooterText"></div>
+</div>
+
+<h3 class="adminSectionTitle">BACKGROUND</h3>
+<div class="adminField"><label>BACKGROUND IMAGE URL — OPTIONAL</label><input id="backgroundURL" placeholder="Paste direct image URL if desired"></div>
+<div class="adminField"><label>CHOOSE BACKGROUND IMAGE</label><input id="backgroundFile" class="fileInput" type="file" accept="image/*"></div>
+
+<h3 class="adminSectionTitle">TRAILER</h3>
+<div class="adminField"><label>CHOOSE TRAILER VIDEO</label><input id="trailerFile" class="fileInput" type="file" accept="video/*"></div>
+
+<h3 class="adminSectionTitle">INSTAGRAM LINKS</h3>
+<div class="adminGrid">
+<div class="adminField"><label>PARAMESWAR INSTAGRAM</label><input id="igParameswar"></div>
+<div class="adminField"><label>VINAY INSTAGRAM</label><input id="igVinay"></div>
+<div class="adminField"><label>ARUSH INSTAGRAM</label><input id="igArush"></div>
+<div class="adminField"><label>DEVAN INSTAGRAM</label><input id="igDevan"></div>
+<div class="adminField"><label>DOTBYTE SYSTEMS INSTAGRAM</label><input id="igDotbyte"></div>
+<div class="adminField"><label>PVN COMPANY INSTAGRAM</label><input id="igPvn"></div>
+</div>
+
+<div class="adminActions">
+<button class="btn btnRed" onclick="saveChanges()">SAVE ALL CHANGES</button>
+<button class="btn" onclick="resetWebsite()">RESET WEBSITE</button>
+<button class="btn" onclick="adminLogout()">LOCK DASHBOARD</button>
+</div>
+
+<div id="saveStatus" class="saveStatus"></div>
+</div>
+</div>
+</div>
+
+<script>
+const defaultData = {
+    nav:{ logo:"VARUNA 1.0", pill1:"AUTONOMOUS EV", pill2:"MINI ELECTRIC VEHICLE COMPETITION 3.0", about:"ABOUT", components:"COMPONENTS", admin:"ADMIN" },
+    hero:{ eyebrow:"DOTBYTE SYSTEMS × PVN COMPANY × SACHU PRESENT", line1:"PROJECT", line2:"VARUNA 1.0", subtitle:"MINI ELECTRIC VEHICLE • AUTONOMOUS LINE FOLLOWER", trailerComing:"TRAILER COMING SOON" },
+    about:{ title:"ABOUT VARUNA", subtitle:"A competition-focused autonomous electric vehicle.", missionTitle:"MISSION", mission:"Build a compact electric vehicle capable of intelligently following a marked racing path and reaching the finish line.", engineeringTitle:"ENGINEERING APPROACH", engineering:"Sensors detect the track while the ESP32 processes the data and controls the motors through high-power motor drivers." },
+    missionSection:{ title:"MISSION", subtitle:"Designed around the line follower race." },
+    components:[
+        { name:"ESP32 38-PIN", subtitle:"Main control system", tag:"COMPONENT 01", description:"Main processing board of Varuna.", image:"" },
+        { name:"8-CHANNEL IR ARRAY", subtitle:"Line detection", tag:"COMPONENT 02", description:"Eight infrared channels detect track position.", image:"" },
+        { name:"BTS7960", subtitle:"Motor driver", tag:"COMPONENT 03", description:"High-power motor driver.", image:"" },
+        { name:"DC GEARED MOTORS", subtitle:"Vehicle drive", tag:"COMPONENT 04", description:"Drive motors convert electrical energy.", image:"" },
+        { name:"PCF8574", subtitle:"GPIO expansion", tag:"COMPONENT 05", description:"GPIO expansion device.", image:"" },
+        { name:"LI-ION BATTERY PACK", subtitle:"Power system", tag:"COMPONENT 06", description:"Battery system supplying power.", image:"" },
+        { name:"BLACK METAL CHASSIS", subtitle:"Vehicle structure", tag:"COMPONENT 07", description:"Mechanical structure.", image:"" }
+    ],
+    data:{ title:"VARUNA / DATA", subtitle:"Core system architecture.", stats:[ {value:"8",label:"IR CHANNELS"}, {value:"9",label:"LI-ION CELLS"}, {value:"1",label:"ESP32"}, {value:"2",label:"BTS7960"} ] },
+    team:[ { name:"PARAMESWAR", role:"Project Director", instagram:"" }, { name:"VINAY", role:"Craft Director", instagram:"" }, { name:"ARUSH", role:"Arts Director", instagram:"" }, { name:"DEVAN", role:"Software Director", instagram:"" } ],
+    project:{ title:"PROJECT", subtitle:"Competition configuration.", heading:"MINI ELECTRIC VEHICLE COMPETITION 3.0", description:"Project Varuna is being developed as an autonomous electric vehicle.", bullets:[ "Autonomous line-following electric vehicle.", "8-channel infrared track detection.", "ESP32-based control system.", "BTS7960 high-power motor control.", "Designed for reliable path tracking." ] },
+    credits:{ title:"CREDITS", subtitle:"Project organizations.", dotbyte:"DOTBYTE SYSTEMS ↗", pvn:"PVN COMPANY ↗" },
+    footer:{ admin:"OPEN ADMIN DASHBOARD", text:"PROJECT VARUNA 1.0" },
+    background:"", trailer:""
+};
+
+let siteData = defaultData;
+
+async function loadServerData() {
+    try {
+        const response = await fetch('/api/get-data');
+        if (response.ok) {
+            siteData = await response.json();
+            applyData();
+        }
+    } catch (err) {
+        console.error("Could not load server data:", err);
+    }
+}
+
+function createStars(){
+    const stars = document.getElementById("stars");
+    for(let i=0;i<130;i++){
+        const star = document.createElement("div");
+        star.className="star";
+        star.style.left = Math.random()*100+"%";
+        star.style.top = Math.random()*100+"%";
+        star.style.opacity = Math.random()*.7+.2;
+        star.style.animationDuration = Math.random()*20+15+"s";
+        star.style.animationDelay = -Math.random()*20+"s";
+        stars.appendChild(star);
+    }
+}
+
+function applyData(){
+    text("navLogo",siteData.nav.logo);
+    text("navPill1",siteData.nav.pill1);
+    text("navPill2",siteData.nav.pill2);
+    text("navAboutBtn",siteData.nav.about);
+    text("navComponentsBtn",siteData.nav.components);
+    text("navAdminBtn",siteData.nav.admin);
+
+    text("heroEyebrow",siteData.hero.eyebrow);
+    text("heroLine1",siteData.hero.line1);
+    text("heroLine2",siteData.hero.line2);
+    text("heroSubtitle",siteData.hero.subtitle);
+    text("trailerComing",siteData.hero.trailerComing);
+
+    text("aboutTitle",siteData.about.title);
+    text("aboutSubtitle",siteData.about.subtitle);
+    text("missionTitle",siteData.about.missionTitle);
+    text("missionPreview",siteData.about.mission);
+    text("missionFull",siteData.about.mission);
+    text("engineeringTitle",siteData.about.engineeringTitle);
+    text("engineeringPreview",siteData.about.engineering);
+
+    text("missionSectionTitle",siteData.missionSection.title);
+    text("missionSectionSubtitle",siteData.missionSection.subtitle);
+
+    renderComponents();
+
+    text("dataTitle",siteData.data.title);
+    text("dataSubtitle",siteData.data.subtitle);
+    renderData();
+
+    text("teamTitle",siteData.teamTitle || "TEAM");
+    if(siteData.teamSubtitle) text("teamSubtitle",siteData.teamSubtitle);
+    renderTeam();
+
+    text("projectTitle",siteData.project.title);
+    text("projectSubtitle",siteData.project.subtitle);
+    text("projectHeading",siteData.project.heading);
+    text("projectDescription",siteData.project.description);
+    renderProjectBullets();
+
+    text("creditsTitle",siteData.credits.title);
+    text("creditsSubtitle",siteData.credits.subtitle);
+    text("dotbyteCredit",siteData.credits.dotbyte);
+    text("pvnCredit",siteData.credits.pvn);
+
+    text("footerAdminBtn",siteData.footer.admin);
+    text("footerText",siteData.footer.text);
+
+    const background = document.getElementById("spaceBackground");
+    if(siteData.background){
+        background.style.backgroundImage = "linear-gradient(rgba(0,0,0,.48),rgba(0,0,0,.72)),url("+JSON.stringify(siteData.background)+")";
+        background.style.backgroundSize="cover";
+        background.style.backgroundPosition="center";
+    }else{
+        background.style.backgroundImage="";
+    }
+
+    const video = document.getElementById("trailerVideo");
+    const coming = document.getElementById("trailerComing");
+    if(siteData.trailer){
+        video.src=siteData.trailer;
+        video.style.display="block";
+        coming.style.display="none";
+    }else{
+        video.removeAttribute("src");
+        video.style.display="none";
+        coming.style.display="grid";
+    }
+}
+
+function text(id,value){
+    const el=document.getElementById(id);
+    if(el) el.textContent = value ?? "";
+}
+
+function renderComponents(){
+    const list = document.getElementById("componentList");
+    list.innerHTML="";
+    siteData.components.forEach((component,index)=>{
+        const item = document.createElement("div");
+        item.className="componentItem"+(index===0 ? " active":"");
+        item.innerHTML="<strong>"+escapeHTML(component.name)+"</strong><small>"+escapeHTML(component.subtitle)+"</small>";
+        item.onclick=()=>showComponent(index);
+        list.appendChild(item);
+    });
+    showComponent(0);
+}
+
+function showComponent(index){
+    const component = siteData.components[index];
+    if(!component)return;
+    document.querySelectorAll(".componentItem").forEach((el,i)=>{ el.classList.toggle("active", i===index); });
+    text("componentTag",component.tag);
+    text("componentName",component.name);
+    text("componentDescription",component.description);
+    const image = document.getElementById("componentImage");
+    if(component.image){ image.src=component.image; image.style.display="block"; }
+    else{ image.removeAttribute("src"); }
+    const btn = document.getElementById("componentButton");
+    if(component.buttonText && component.buttonLink){
+        btn.textContent = component.buttonText;
+        btn.onclick = () => { window.open(component.buttonLink, "_blank", "noopener"); };
+        btn.style.display = "inline-block";
+    } else {
+        btn.style.display = "none";
+    }
+}
+
+function renderData(){
+    const grid = document.getElementById("dataGrid");
+    grid.innerHTML="";
+    siteData.data.stats.forEach(stat=>{
+        const circle = document.createElement("div");
+        circle.className="dataCircle glass";
+        circle.innerHTML="<div><b>"+escapeHTML(stat.value)+"</b><span>"+escapeHTML(stat.label)+"</span></div>";
+        grid.appendChild(circle);
+    });
+}
+
+function renderTeam(){
+    const grid = document.getElementById("teamGrid");
+    grid.innerHTML="";
+    siteData.team.forEach((member,index)=>{
+        const card = document.createElement("div");
+        card.className="member glass";
+        card.innerHTML="<h3>"+escapeHTML(member.name)+"</h3><span>"+escapeHTML(member.role)+"</span>";
+        card.onclick=()=>openInstagram("team",index);
+        grid.appendChild(card);
+    });
+}
+
+function renderProjectBullets(){
+    const list = document.getElementById("projectBullets");
+    list.innerHTML="";
+    siteData.project.bullets.forEach(bullet=>{
+        const li = document.createElement("li");
+        li.textContent=bullet;
+        list.appendChild(li);
+    });
+}
+
+function openInfo(type){
+    const modal = document.getElementById("infoModal");
+    if(type==="mission"){
+        text("modalTitle",siteData.about.missionTitle);
+        text("modalText",siteData.about.mission);
+    }else{
+        text("modalTitle",siteData.about.engineeringTitle);
+        text("modalText",siteData.about.engineering);
+    }
+    modal.classList.add("open");
+}
+
+function closeInfo(){ document.getElementById("infoModal").classList.remove("open"); }
+
+document.getElementById("infoModal").addEventListener("click", function(e){ if(e.target===this) closeInfo(); });
+
+function openInstagram(type,index){
+    let url="";
+    if(type==="team") url = siteData.team[index].instagram;
+    if(type==="dotbyte") url = siteData.instagram?.dotbyte || "";
+    if(type==="pvn") url = siteData.instagram?.pvn || "";
+    if(!url){ alert("Instagram link has not been added yet."); return; }
+    url=url.trim();
+    if(!/^https?:\/\//i.test(url)) url = "https://www.instagram.com/"+url.replace(/^@/,"")+"/";
+    window.open(url,"_blank","noopener");
+}
+
+function openAdmin(){
+    document.getElementById("adminOverlay").classList.add("open");
+    document.getElementById("pinScreen").classList.remove("hidden");
+    document.getElementById("dashboard").classList.add("hidden");
+    document.getElementById("adminPinInput").value="";
+    document.getElementById("pinError").textContent="";
+    setTimeout(()=>{ document.getElementById("adminPinInput").focus(); },100);
+}
+
+function closeAdmin(){ document.getElementById("adminOverlay").classList.remove("open"); }
+
+function adminLogout(){
+    document.getElementById("dashboard").classList.add("hidden");
+    document.getElementById("pinScreen").classList.remove("hidden");
+}
+
+async function checkPin(){
+    const pin = document.getElementById("adminPinInput").value;
+    const errorEl = document.getElementById("pinError");
+
+    try {
+        const response = await fetch('/api/admin-login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ pin: pin })
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+            document.getElementById("pinScreen").classList.add("hidden");
+            document.getElementById("dashboard").classList.remove("hidden");
+            buildAdminFields();
+        } else {
+            errorEl.textContent = data.message || "INCORRECT PIN.";
+        }
+    } catch (err) {
+        errorEl.textContent = "SERVER ERROR. TRY AGAIN.";
+    }
+}
+
+function buildAdminFields(){
+    value("editNavLogo",siteData.nav.logo);
+    value("editNavPill1",siteData.nav.pill1);
+    value("editNavPill2",siteData.nav.pill2);
+    value("editNavAbout",siteData.nav.about);
+    value("editNavComponents",siteData.nav.components);
+    value("editNavAdmin",siteData.nav.admin);
+
+    value("editEyebrow",siteData.hero.eyebrow);
+    value("editHeroLine1",siteData.hero.line1);
+    value("editHeroLine2",siteData.hero.line2);
+    value("editHeroSubtitle",siteData.hero.subtitle);
+    value("editTrailerComing",siteData.hero.trailerComing);
+
+    value("editAboutTitle",siteData.about.title);
+    value("editAboutSubtitle",siteData.about.subtitle);
+    value("editMissionTitle",siteData.about.missionTitle);
+    value("editEngineeringTitle",siteData.about.engineeringTitle);
+    value("editMission",siteData.about.mission);
+    value("editEngineering",siteData.about.engineering);
+
+    value("editMissionSectionTitle",siteData.missionSection.title);
+    value("editMissionSectionSubtitle",siteData.missionSection.subtitle);
+
+    value("editComponentsTitle",document.getElementById("componentsTitle").textContent);
+    value("editComponentsSubtitle",document.getElementById("componentsSubtitle").textContent);
+    buildComponentAdmin();
+
+    value("editDataTitle",siteData.data.title);
+    value("editDataSubtitle",siteData.data.subtitle);
+    buildDataAdmin();
+
+    value("editTeamTitle",siteData.teamTitle || "TEAM");
+    value("editTeamSubtitle",siteData.teamSubtitle || "The people behind Project Varuna.");
+    buildTeamAdmin();
+
+    value("editProjectTitle",siteData.project.title);
+    value("editProjectSubtitle",siteData.project.subtitle);
+    value("editProjectHeading",siteData.project.heading);
+    value("editProjectDescription",siteData.project.description);
+    buildBulletAdmin();
+
+    value("editCreditsTitle",siteData.credits.title);
+    value("editCreditsSubtitle",siteData.credits.subtitle);
+    value("editDotbyteCredit",siteData.credits.dotbyte);
+    value("editPvnCredit",siteData.credits.pvn);
+
+    value("editFooterAdmin",siteData.footer.admin);
+    value("editFooterText",siteData.footer.text);
+
+    value("backgroundURL",siteData.background && !siteData.background.startsWith("data:") ? siteData.background : "");
+
+    const ig = siteData.instagram || {};
+    value("igParameswar", siteData.team[0]?.instagram || "");
+    value("igVinay", siteData.team[1]?.instagram || "");
+    value("igArush", siteData.team[2]?.instagram || "");
+    value("igDevan", siteData.team[3]?.instagram || "");
+    value("igDotbyte", ig.dotbyte || "");
+    value("igPvn", ig.pvn || "");
+}
+
+function value(id,val){
+    const el = document.getElementById(id);
+    if(el) el.value = val ?? "";
+}
+
+function buildComponentAdmin(){
+    const box = document.getElementById("componentAdminFields");
+    box.innerHTML="";
+    siteData.components.forEach((component,index)=>{
+        const wrapper = document.createElement("div");
+        wrapper.className="componentAdmin";
+        wrapper.innerHTML=`
+            <h4>COMPONENT ${index+1}</h4>
+            <div class="adminGrid">
+                <div class="adminField"><label>NAME</label><input id="compName${index}"></div>
+                <div class="adminField"><label>LIST SUBTITLE</label><input id="compSubtitle${index}"></div>
+                <div class="adminField"><label>COMPONENT TAG</label><input id="compTag${index}"></div>
+                <div class="adminField full"><label>DESCRIPTION</label><textarea id="compDescription${index}"></textarea></div>
+                <div class="adminField full"><label>CHOOSE COMPONENT IMAGE</label><input class="fileInput" type="file" accept="image/*" id="compFile${index}"><img class="imagePreview" id="compPreview${index}"></div>
+                <div class="adminField full"><label>OPTIONAL IMAGE URL</label><input id="compURL${index}" placeholder="Optional direct image URL"></div>
+                <div class="adminField full"><label>BUTTON TEXT</label><input id="compButtonText${index}" placeholder="e.g., Specs"></div>
+                <div class="adminField full"><label>BUTTON LINK URL</label><input id="compButtonLink${index}" placeholder="https://example.com"></div>
+            </div>
+        `;
+        box.appendChild(wrapper);
+        value(`compName${index}`,component.name);
+        value(`compSubtitle${index}`,component.subtitle);
+        value(`compTag${index}`,component.tag);
+        value(`compDescription${index}`,component.description);
+        value(`compURL${index}`,component.image && !component.image.startsWith("data:") ? component.image : "");
+        value(`compButtonText${index}`,component.buttonText || "");
+        value(`compButtonLink${index}`,component.buttonLink || "");
+
+        const preview = document.getElementById(`compPreview${index}`);
+        if(component.image){ preview.src=component.image; preview.style.display="block"; }
+
+        document.getElementById(`compFile${index}`).addEventListener("change",function(){
+            const file=this.files[0];
+            if(!file)return;
+            const reader=new FileReader();
+            reader.onload=function(e){ preview.src=e.target.result; preview.style.display="block"; };
+            reader.readAsDataURL(file);
+        });
+    });
+}
+
+function buildDataAdmin(){
+    const box = document.getElementById("dataAdminFields");
+    box.innerHTML="";
+    siteData.data.stats.forEach((stat,index)=>{
+        const wrapper = document.createElement("div");
+        wrapper.className="adminField";
+        wrapper.innerHTML=`
+            <label>STAT ${index+1} VALUE</label><input id="statValue${index}">
+            <label style="margin-top:7px">STAT ${index+1} LABEL</label><input id="statLabel${index}">
+        `;
+        box.appendChild(wrapper);
+        value(`statValue${index}`,stat.value);
+        value(`statLabel${index}`,stat.label);
+    });
+}
+
+function buildTeamAdmin(){
+    const box = document.getElementById("teamAdminFields");
+    box.innerHTML="";
+    siteData.team.forEach((member,index)=>{
+        const wrapper = document.createElement("div");
+        wrapper.className="componentAdmin";
+        wrapper.innerHTML=`
+            <h4>TEAM MEMBER ${index+1}</h4>
+            <div class="adminGrid">
+                <div class="adminField"><label>NAME</label><input id="memberName${index}"></div>
+                <div class="adminField"><label>ROLE</label><input id="memberRole${index}"></div>
+                <div class="adminField full"><label>INSTAGRAM</label><input id="memberInstagram${index}"></div>
+            </div>
+        `;
+        box.appendChild(wrapper);
+        value(`memberName${index}`,member.name);
+        value(`memberRole${index}`,member.role);
+        value(`memberInstagram${index}`,member.instagram);
+    });
+}
+
+function buildBulletAdmin(){
+    const box = document.getElementById("projectBulletAdmin");
+    box.innerHTML="";
+    siteData.project.bullets.forEach((bullet,index)=>{
+        const field = document.createElement("div");
+        field.className="adminField";
+        field.innerHTML=`<label>PROJECT BULLET ${index+1}</label><input id="bullet${index}">`;
+        box.appendChild(field);
+        value(`bullet${index}`,bullet);
+    });
+}
+
+async function saveChanges(){
+    siteData.nav.logo = get("editNavLogo");
+    siteData.nav.pill1 = get("editNavPill1");
+    siteData.nav.pill2 = get("editNavPill2");
+    siteData.nav.about = get("editNavAbout");
+    siteData.nav.components = get("editNavComponents");
+    siteData.nav.admin = get("editNavAdmin");
+
+    siteData.hero.eyebrow = get("editEyebrow");
+    siteData.hero.line1 = get("editHeroLine1");
+    siteData.hero.line2 = get("editHeroLine2");
+    siteData.hero.subtitle = get("editHeroSubtitle");
+    siteData.hero.trailerComing = get("editTrailerComing");
+
+    siteData.about.title = get("editAboutTitle");
+    siteData.about.subtitle = get("editAboutSubtitle");
+    siteData.about.missionTitle = get("editMissionTitle");
+    siteData.about.mission = get("editMission");
+    siteData.about.engineeringTitle = get("editEngineeringTitle");
+    siteData.about.engineering = get("editEngineering");
+
+    siteData.missionSection.title = get("editMissionSectionTitle");
+    siteData.missionSection.subtitle = get("editMissionSectionSubtitle");
+
+    siteData.components.forEach((component,index)=>{
+        component.name = get(`compName${index}`);
+        component.subtitle = get(`compSubtitle${index}`);
+        component.tag = get(`compTag${index}`);
+        component.description = get(`compDescription${index}`);
+        const url = get(`compURL${index}`);
+        if(url) component.image=url;
+        const btnText = get(`compButtonText${index}`);
+        const btnLink = get(`compButtonLink${index}`);
+        component.buttonText = btnText;
+        component.buttonLink = btnLink;
+    });
+
+    siteData.data.title = get("editDataTitle");
+    siteData.data.subtitle = get("editDataSubtitle");
+    siteData.data.stats.forEach((stat,index)=>{
+        stat.value = get(`statValue${index}`);
+        stat.label = get(`statLabel${index}`);
+    });
+
+    siteData.teamTitle = get("editTeamTitle");
+    siteData.teamSubtitle = get("editTeamSubtitle");
+    siteData.team.forEach((member,index)=>{
+        member.name = get(`memberName${index}`);
+        member.role = get(`memberRole${index}`);
+        member.instagram = get(`memberInstagram${index}`);
+    });
+
+    siteData.project.title = get("editProjectTitle");
+    siteData.project.subtitle = get("editProjectSubtitle");
+    siteData.project.heading = get("editProjectHeading");
+    siteData.project.description = get("editProjectDescription");
+    siteData.project.bullets = siteData.project.bullets.map((_,index)=> get(`bullet${index}`));
+
+    siteData.credits.title = get("editCreditsTitle");
+    siteData.credits.subtitle = get("editCreditsSubtitle");
+    siteData.credits.dotbyte = get("editDotbyteCredit");
+    siteData.credits.pvn = get("editPvnCredit");
+
+    siteData.footer.admin = get("editFooterAdmin");
+    siteData.footer.text = get("editFooterText");
+
+    const bgURL = get("backgroundURL");
+    if(bgURL) siteData.background=bgURL;
+
+    siteData.instagram = { dotbyte: get("igDotbyte"), pvn: get("igPvn") };
+
+    const currentPin = document.getElementById("adminPinInput").value;
+
+    try {
+        const res = await fetch('/api/save-data', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ pin: currentPin, data: siteData })
+        });
+
+        const result = await res.json();
+
+        if (res.ok) {
+            applyData();
+            document.getElementById("saveStatus").textContent = "✓ SAVED TO LIVE SERVER";
+            setTimeout(() => { document.getElementById("saveStatus").textContent = ""; }, 3000);
+        } else {
+            alert(result.message || "Failed to save to server");
+        }
+    } catch (err) {
+        alert("Server error. Could not connect to save.");
+    }
+}
+
+function get(id){
+    const el = document.getElementById(id);
+    return el ? el.value : "";
+}
+
+document.getElementById("backgroundFile").addEventListener("change", function(){
+    const file=this.files[0];
+    if(!file)return;
+    const reader = new FileReader();
+    reader.onload = function(e){
+        siteData.background = e.target.result;
+        applyData();
+        value("backgroundURL","");
+        document.getElementById("saveStatus").textContent= "✓ BACKGROUND UPLOADED";
+    };
+    reader.readAsDataURL(file);
+});
+
+document.getElementById("trailerFile").addEventListener("change", function(){
+    const file=this.files[0];
+    if(!file)return;
+    const reader = new FileReader();
+    reader.onload = function(e){
+        siteData.trailer = e.target.result;
+        applyData();
+        document.getElementById("saveStatus").textContent= "✓ TRAILER UPLOADED";
+    };
+    reader.readAsDataURL(file);
+});
+
+document.addEventListener("change", function(e){
+    if(!e.target.id.startsWith("compFile")) return;
+    const index = parseInt(e.target.id.replace("compFile",""));
+    const file = e.target.files[0];
+    if(!file)return;
+    const reader = new FileReader();
+    reader.onload = function(event){
+        siteData.components[index].image = event.target.result;
+        const preview = document.getElementById(`compPreview${index}`);
+        preview.src = event.target.result;
+        preview.style.display = "block";
+    };
+    reader.readAsDataURL(file);
+});
+
+function resetWebsite(){
+    if(!confirm("Reset the entire Varuna website?")) return;
+    siteData = JSON.parse(JSON.stringify(defaultData));
+    applyData();
+    buildAdminFields();
+    document.getElementById("saveStatus").textContent= "✓ WEBSITE RESET";
+}
+
+function escapeHTML(value){
+    return String(value ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+}
+
+function scrollToSection(id){
+    const element = document.getElementById(id);
+    if(element){ element.scrollIntoView({ behavior:"smooth" }); }
+}
+
+document.addEventListener("keydown", function(e){
+    if(e.key==="Escape"){ closeInfo(); closeAdmin(); }
+});
+
+createStars();
+loadServerData();
+</script>
+
+</body>
+</html>
